@@ -39,24 +39,27 @@ let mySearch = "agenda cultural";
 
   // Search in the page
   await page.type(myImput, mySearch);
-  await page.keyboard.press("Enter", { delay: 1000 });
+  await page.click(`//input[@aria-label="Cercar"]`);
 
+  await sleep(1000);
+  // await page.keyboard.press("Enter", { delay: 1000 });   // ---> This is my solution.
+  
+  // Screenshot
+  let d = new Date().getUTCMilliseconds();
+  await page.screenshot({ path: `./screenshots/ch-${d}.png` });
+  
   // Print differents names for screenshots
 
-  let d = new Date().getUTCMilliseconds();
   console.log(
     `-------------------
     You can see your screenshot searching by the name ** ch-${d}.png ** in the "screenshots folder"
     ---------------`
   );
-
-  // Screenshot
-  await page.screenshot({
-    path: `./screenshots/ch-${d}.png`,
-  });
-
   // Close browser
 
   await browser.close();
-  
 })();
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms || DEF_DELAY));
+}
