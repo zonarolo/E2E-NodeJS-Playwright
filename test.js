@@ -1,34 +1,62 @@
 const playwright = require("playwright");
 
+// My variables
+
+let myBrowser = "chromium";
+let myHeadless = false;
+let mySlowmMo = 50;
+let myPage = "https://web.gencat.cat/ca/inici";
+let myImput = "[id=cercadorOcultGoogle]";
+let mySearch = "agenda cultural";
+
 (async () => {
   //open browser
-  const browser = await playwright["chromium"].launch({
-    headless: false,
-    slowMo: 50,
+  const browser = await playwright[myBrowser].launch({
+    headless: myHeadless,
+    slowMo: mySlowmMo,
   });
 
-  //context
+  // Context
 
   const context = await browser.newContext();
 
-  //page
+  // Page
 
   const page = await context.newPage();
 
-  //navigate to the page
+  // Navigate to the page
 
-  await page.goto("https://web.gencat.cat/ca/inici");
+  await page.goto(myPage);
 
   // Wait for the page load
 
   let waitPeriod = 1;
   await page.waitForResponse((response) => {
-    console.log("Starting to wait ...." + waitPeriod);
+    console.log("Starting to wait .... " + waitPeriod + " Seconds");
     waitPeriod++;
     return response.request().resourceType() === "xhr";
   });
 
-  await page.screenshot({ path: `./screenshots/ch-${Date.now}.png` });
+  // Search in the page
+  await page.type(myImput, mySearch);
+  await page.keyboard.press("Enter", { delay: 1000 });
+
+  // Print differents names for screenshots
+
+  let d = new Date().getUTCMilliseconds();
+  console.log(
+    `-------------------
+    You can see your screenshot searching by the name ** ch-${d}.png ** in the "screenshots folder"
+    ---------------`
+  );
+
+  // Screenshot
+  await page.screenshot({
+    path: `./screenshots/ch-${d}.png`,
+  });
+
+  // Close browser
 
   await browser.close();
+  
 })();
