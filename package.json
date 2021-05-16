@@ -1,0 +1,23 @@
+{
+  "name": "e2e-nodejs-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zonarolo/E2E-NodeJS-Playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zonarolo/E2E-NodeJS-Playwright/issues"
+  },
+  "homepage": "https://github.com/zonarolo/E2E-NodeJS-Playwright#readme",
+  "devDependencies": {
+    "playwright": "^1.11.0"
+  }
+}
